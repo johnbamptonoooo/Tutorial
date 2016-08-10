@@ -1,0 +1,51 @@
+<?php
+
+require_once('connections/db_connection.php');
+
+mysql_select_db($database, $connect);
+
+mysql_query("SET NAMES 'utf8'");
+
+//start transaction
+mysql_query("SET AUTOCOMMIT=0;");
+
+mysql_query("START TRANSACTION;");
+
+$users_array = array();
+
+for ($i = 1; $i <= 12 ; $i++) 
+{ 
+
+	$get_users = mysql_query("SELECT COUNT(id) AS cnt FROM users WHERE DATE_FORMAT(lastLogin, '%m') = ".$i." AND DATE_FORMAT(lastLogin, '%Y') = DATE_FORMAT(CURDATE(), '%Y') ;");
+
+	$get_users2 = mysql_fetch_assoc($get_users);
+		
+	$users_array[] = $get_users2['cnt'];
+
+}
+
+for ($i = 1; $i <= 12 ; $i++) 
+{ 
+
+ 	$get_users = mysql_query("SELECT COUNT(id) AS cnt FROM users WHERE DATE_FORMAT(dateRegistered, '%m') = ".$i." AND DATE_FORMAT(dateRegistered, '%Y') = DATE_FORMAT(CURDATE(), '%Y') ;"); 
+
+	$get_users2 = mysql_fetch_assoc($get_users);
+
+	$users_array[] = $get_users2['cnt'];
+
+}
+for ($i = 1; $i <= 12 ; $i++) 
+{ 
+
+ 	$get_users = mysql_query("SELECT COUNT(id) AS cnt FROM users WHERE DATE_FORMAT(dateRegistered, '%m') = ".$i." AND DATE_FORMAT(dateRegistered, '%Y') = DATE_FORMAT(CURDATE(), '%Y')  AND facebookUser = 1;"); 
+
+	$get_users2 = mysql_fetch_assoc($get_users);
+
+	$users_array[] = $get_users2['cnt'];
+
+}
+mysql_query("COMMIT;"); 
+
+echo json_encode($users_array);
+
+?>

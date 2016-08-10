@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="PokerVelvetPersistence"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>
+            org.eclipse.persistence.jpa.PersistenceProvider
+        </provider>
+		<jar-file>lib/VelvetPokerDao.jar</jar-file>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://{POKERVELVET_DB_IP}:3306/pokervelvet" />
+			<property name="javax.persistence.jdbc.user" value="pokeruser" />
+			<property name="javax.persistence.jdbc.password" value="dsaewq321!" />
+
+			<!-- EclipseLink should create the database schema automatically -->
+
+            <property name="eclipselink.ddl-generation" value="none" />
+			<property name="eclipselink.deploy-on-startup" value="true" />
+
+			<!-- logging -->
+			<property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.SLF4JLogger"/>
+			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
+			<property name="eclipselink.logging.exceptions" value="true" />
+		</properties>
+
+	</persistence-unit>
+</persistence> 
+
